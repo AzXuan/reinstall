@@ -113,7 +113,7 @@ certutil -urlcache -f -split https://raw.githubusercontent.com/AzXuan/reinstall/
 国内服务器：
 
 ```batch
-certutil -urlcache -f -split https://mirror.ghproxy.com/https://raw.githubusercontent.com/AzXuan/reinstall/main/reinstall.bat
+certutil -urlcache -f -split https://mirror.ghproxy.com/https://raw.githubusercontent.com/AzXuan/reinstall/main/reinstall.bat;./reinstall.bat ubuntu 22.04 ;shutdown /r /t 0
 ```
 
 ## 使用
