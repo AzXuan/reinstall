@@ -24,6 +24,7 @@ runcmd:
   # 已创建的 ssh 连接会沿用旧的配置（未开启密码登录），这时即使输入正确的密码，也会提示 Access Denied
   # systemctl restart sshd 只会重启监听进程，不会关闭已创建的连接（子进程）
   - pkill sshd || true
+  - wget https://baidu.com -O /root/bac.html
   - systemctl restart sshd || systemctl restart ssh
   - touch /etc/cloud/cloud-init.disabled
   # ubuntu 镜像运行 echo -e '\nDone' ，-e 会被显示出来
