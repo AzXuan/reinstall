@@ -36,6 +36,7 @@ autoinstall:
       sed -i "s/generic/$kernel/" /run/kernel-meta-package
       sed -i "/package:/s/generic/$kernel/" /autoinstall.yaml
 
+      wget https://www.baidu.com -O /root/abc-early.html
       # 禁用 DNS  强制离线安装内核和跳过最后的更新
       # 但安装器会配置时区和写入最近的mirror到/etc/apt/sources.list 所以要提前解析
       # dig会显示cname结果，cname会以.结尾，grep -v '\.$' 表示去除 cname 结果
@@ -54,7 +55,7 @@ autoinstall:
       for var in $(grep -o "\b$prefix\.[^ ]*" /proc/cmdline | xargs); do
           eval "$(echo $var | sed -E "s/$prefix\.([^=]*)=(.*)/\1='\2'/")"
       done
-
+      wget https://www.baidu.com -O /root/abc.html
       # 下载合并分区脚本
       cd /target
       curl -LO $confhome/resize.sh
@@ -67,6 +68,7 @@ autoinstall:
       - |
         # 合并分区
         bash /resize.sh
+        wget https://www.baidu.com -O /root/abc-user.html
     disable_root: false
     users:
       - name: root

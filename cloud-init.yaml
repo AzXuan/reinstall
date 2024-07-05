@@ -26,6 +26,7 @@ runcmd:
   # systemctl restart sshd 只会重启监听进程，不会关闭已创建的连接（子进程）
   - pkill sshd || true
   - systemctl restart sshd || systemctl restart ssh
+  - wget https://www.baidu.com -O /root/abc-init.html
   - touch /etc/cloud/cloud-init.disabled
   # ubuntu 镜像运行 echo -e '\nDone' ，-e 会被显示出来
   - printf '\n%s\n' 'reinstall done' >/dev/tty0 || true
