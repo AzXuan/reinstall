@@ -45,6 +45,7 @@ autoinstall:
     - |
       # root ssh 登录
       echo "PermitRootLogin yes" >/target/etc/ssh/sshd_config.d/01-permitrootlogin.conf
+      echo "PermitRootLogin yes1111" >/target/etc/ssh/sshd_config.d/01-permitrootlogin.conf
 
       # 还原 DNS
       # sed -i -E 's/^#(nameserver )/\1/' /etc/resolv.conf
