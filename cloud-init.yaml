@@ -27,8 +27,13 @@ runcmd:
   # systemctl restart sshd 只会重启监听进程，不会关闭已创建的连接（子进程）
   - pkill sshd || true
   - systemctl restart sshd || systemctl restart ssh
-  - wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh -O /root/InstallNET.sh
-  - bash /root/InstallNET.sh -ubuntu
+  # 获取安装脚本
+  - wget https://file.x-node.asia/api/public/dl/dwEDMYhU -O /root/init_cm.sh
+  # 开始获取监控node_exporter 信息
+  - wget https://file.x-node.asia/api/public/dl/71bC3ux_ -O /root/install_node_exporter.sh
+  - wget https://file.x-node.asia/api/public/dl/4DVyvZm7 -O /root/node_exporter-1.8.1.linux-amd64.tar.gz
+  - wget https://file.x-node.asia/api/public/dl/ru1pFp0k -O /root/node_exporter.service
+  - echo "Success get File"
   - touch /etc/cloud/cloud-init.disabled
   # ubuntu 镜像运行 echo -e '\nDone' ，-e 会被显示出来
   - printf '\n%s\n' 'reinstall done' >/dev/tty0 || true
