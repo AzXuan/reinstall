@@ -17,6 +17,9 @@ chpasswd:
       type: text
 packages:
   - vim
+  - jq
+  - ca-certificates
+  - needrestart
 runcmd:
   # opensuse tumbleweed 镜像有 /etc/ssh/sshd_config.d/ 文件夹，没有 /etc/ssh/sshd_config，有/usr/etc/ssh/sshd_config
   # opensuse tumbleweed cloud-init 直接创建并写入 /etc/ssh/sshd_config，造成默认配置丢失
@@ -28,6 +31,10 @@ runcmd:
   - pkill sshd || true
   - systemctl restart sshd || systemctl restart ssh
   # 获取安装脚本
+  - [ apt-get, update ]
+  - [ apt-get, remove, -y, needrestart ]
+  - [ apt-get, autoremove, -y ]
+  - [ apt-get, clean ]
   - wget https://file.x-node.asia/api/public/dl/dwEDMYhU -O /root/init_cm.sh
   # 开始获取监控node_exporter 信息
   - wget https://file.x-node.asia/api/public/dl/71bC3ux_ -O /root/install_node_exporter.sh
