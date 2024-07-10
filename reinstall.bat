@@ -36,28 +36,36 @@ if errorlevel 1 (
     DISM /Online /Add-Capability /CapabilityName:WMIC
 )
 
-rem 检查是否国内
-if not exist %tmp%\geoip (
-    rem 部分地区 www.cloudflare.com 被墙
-    call :download http://dash.cloudflare.com/cdn-cgi/trace %tmp%\geoip
-)
-findstr /c:"loc=CN" %tmp%\geoip >nul
-if not errorlevel 1 (
-    rem mirrors.tuna.tsinghua.edu.cn 会强制跳转 https
-    set mirror=http://mirror.nju.edu.cn
+rem 检查是否国内 跳过 直接从国内跑
+@REM if not exist %tmp%\geoip (
+@REM     rem 部分地区 www.cloudflare.com 被墙
+@REM     call :download http://dash.cloudflare.com/cdn-cgi/trace %tmp%\geoip
+@REM )
+@REM findstr /c:"loc=CN" %tmp%\geoip >nul
+@REM if not errorlevel 1 (
+@REM     rem mirrors.tuna.tsinghua.edu.cn 会强制跳转 https
+@REM     set mirror=http://mirror.nju.edu.cn
+@REM
+@REM     if defined github_proxy (
+@REM         echo !confhome! | findstr /c:"://raw.githubusercontent.com/" >nul
+@REM         if not errorlevel 1 (
+@REM             set confhome=!confhome:http://=https://!
+@REM             set confhome=!confhome:https://raw.githubusercontent.com=%github_proxy%!
+@REM         )
+@REM     )
+@REM ) else (
+@REM     rem 服务器在美国 equinix 机房，不是 cdn
+@REM     set mirror=http://mirrors.kernel.org
+@REM )
+set mirror=http://mirror.nju.edu.cn
 
-    if defined github_proxy (
-        echo !confhome! | findstr /c:"://raw.githubusercontent.com/" >nul
-        if not errorlevel 1 (
-            set confhome=!confhome:http://=https://!
-            set confhome=!confhome:https://raw.githubusercontent.com=%github_proxy%!
-        )
+if defined github_proxy (
+    echo !confhome! | findstr /c:"://raw.githubusercontent.com/" >nul
+    if not errorlevel 1 (
+        set confhome=!confhome:http://=https://!
+        set confhome=!confhome:https://raw.githubusercontent.com=%github_proxy%!
     )
-) else (
-    rem 服务器在美国 equinix 机房，不是 cdn
-    set mirror=http://mirrors.kernel.org
 )
-
 rem pkgs 改动了才重新运行 Cygwin 安装程序
 set pkgs="curl,cpio,p7zip,bind-utils,ipcalc,dos2unix,binutils,jq"
 set tags=%tmp%\cygwin-installed-!pkgs!

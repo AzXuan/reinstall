@@ -101,9 +101,11 @@ curl() {
 is_in_china() {
     if [ -z $_is_in_china ]; then
         # 部分地区 www.cloudflare.com 被墙
-        curl -L http://dash.cloudflare.com/cdn-cgi/trace |
-            grep -qx 'loc=CN' && _is_in_china=true ||
-            _is_in_china=false
+#        curl -L http://dash.cloudflare.com/cdn-cgi/trace |
+#            grep -qx 'loc=CN' && _is_in_china=true ||
+#            _is_in_china=false
+         # cloudflare可能被墙 直接走国内
+         _is_in_china=true
     fi
     $_is_in_china
 }
