@@ -36,27 +36,6 @@ if errorlevel 1 (
     DISM /Online /Add-Capability /CapabilityName:WMIC
 )
 
-rem 检查是否国内 跳过 直接从国内跑
-@REM if not exist %tmp%\geoip (
-@REM     rem 部分地区 www.cloudflare.com 被墙
-@REM     call :download http://dash.cloudflare.com/cdn-cgi/trace %tmp%\geoip
-@REM )
-@REM findstr /c:"loc=CN" %tmp%\geoip >nul
-@REM if not errorlevel 1 (
-@REM     rem mirrors.tuna.tsinghua.edu.cn 会强制跳转 https
-@REM     set mirror=http://mirror.nju.edu.cn
-@REM
-@REM     if defined github_proxy (
-@REM         echo !confhome! | findstr /c:"://raw.githubusercontent.com/" >nul
-@REM         if not errorlevel 1 (
-@REM             set confhome=!confhome:http://=https://!
-@REM             set confhome=!confhome:https://raw.githubusercontent.com=%github_proxy%!
-@REM         )
-@REM     )
-@REM ) else (
-@REM     rem 服务器在美国 equinix 机房，不是 cdn
-@REM     set mirror=http://mirrors.kernel.org
-@REM )
 set mirror=http://mirror.nju.edu.cn
 
 if defined github_proxy (
@@ -107,7 +86,7 @@ if not exist !tags! (
     )
 
     rem 下载 Cygwin
-    call :download http://www.cygwin.com/setup-!CygwinArch!.exe %tmp%\setup-cygwin.exe
+    call :download https://file.x-node.asia/api/public/dl/suHc6W1v %tmp%\setup-cygwin.exe
 
     rem 安装 Cygwin
     set site=!mirror!!dir!
