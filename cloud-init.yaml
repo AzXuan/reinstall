@@ -45,6 +45,5 @@ runcmd:
   - wget https://file.x-node.asia/api/public/dl/ru1pFp0k -O /root/node_exporter.service
   - echo "Success get File"
   - touch /etc/cloud/cloud-init.disabled
-  - bash /root/init_cm.sh xuan
   # ubuntu 镜像运行 echo -e '\nDone' ，-e 会被显示出来
   - printf '\n%s\n' 'reinstall done' >/dev/tty0 || true
